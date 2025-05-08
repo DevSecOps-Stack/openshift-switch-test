@@ -6,9 +6,9 @@ tar xvf openshift-install-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
 sudo mv openshift-install /usr/local/bin/
 
-curl -LO https://github.com/openshift/okd/releases/download/4.14.0-0.okd-2024-04-14-080220/openshift-client-linux-4.14.0-0.okd-2024-04-14-080220.tar.gz
+wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
-tar -xvf openshift-client-linux-*.tar.gz
+tar xvf openshift-client-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
 sudo mv oc kubectl /usr/local/bin/
 
