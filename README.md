@@ -12,11 +12,11 @@ tar -xvf openshift-client-linux-*.tar.gz
 
 sudo mv oc kubectl /usr/local/bin/
 
-**Set up AWS CLI:**
+**2. Set up AWS CLI:**
 
 aws configure
 
-**Create Install Config**
+**3. Create Install Config**
 
 openshift-install create install-config --dir=okd-sno
 
@@ -36,11 +36,11 @@ SSH key: your public SSH key
 
 Then, edit the generated install-config.yaml to make it single-node:
 
-**Deploy the Cluster**
+**4. Deploy the Cluster**
 
 openshift-install create cluster --dir=okd-sno --log-level=info
 
-**Configure DNS (If not using Route53)**
+**5. Configure DNS (If not using Route53)**
 
 If using external DNS (e.g., Cloudflare), manually create:
 
