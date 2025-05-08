@@ -45,11 +45,13 @@ Pull secret: get from https://cloud.redhat.com/openshift/install/pull-secret
 
 SSH key: your public SSH key
 
+ssh-keygen -t ed25519 -N '' -f ~/.ssh/id_rsa
+
 Then, edit the generated install-config.yaml to make it single-node:
 
 **5. Deploy the Cluster**
 
-openshift-install create cluster --dir=okd-sno --log-level=info
+./openshift-install create cluster --log-level=info
 
 **6. Optional: Clean Up
 
