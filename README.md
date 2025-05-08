@@ -1,16 +1,16 @@
 **1. OKD Installer & Client**
 
-wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-install-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
+wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-install-linux-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
 tar xvf openshift-install-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
-sudo mv openshift-install /usr/local/bin/
+sudo mv openshift-install /usr/bin/
 
-wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
+wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-linux-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
 tar xvf openshift-client-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
-sudo mv oc kubectl /usr/local/bin/
+sudo mv oc kubectl /usr/bin/
 
 **2. Set up AWS CLI:**
 
