@@ -49,3 +49,8 @@ api.okd.example.com → points to the API LB
 *.apps.okd.example.com → points to the apps LB
 
 Get the IPs from the AWS console or via CLI.
+
+**5. Optional: Clean Up
+
+openshift-install destroy cluster --dir=okd-sno
+
