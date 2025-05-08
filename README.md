@@ -1,4 +1,15 @@
-**1. OKD Installer & Client**
+
+**1. Configure DNS (If not using Route53)
+
+If using external DNS (e.g., Cloudflare), manually create:
+
+api.okd.example.com → points to the API LB
+
+*.apps.okd.example.com → points to the apps LB
+
+Get the IPs from the AWS console or via CLI.
+
+**2. OKD Installer & Client**
 
 wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-install-linux-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
@@ -12,15 +23,15 @@ tar xvf openshift-client-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
 sudo mv oc kubectl /usr/bin/
 
-**2. Set up AWS CLI:**
+**3. Set up AWS CLI:**
 
 aws configure
 
-**3. Create Install Config**
+**4. Create Install Config**
 
 openshift-install create install-config --dir=okd-sno
 
-**You will be prompted for:**
+You will be prompted for
 
 Platform: AWS
 
@@ -36,21 +47,11 @@ SSH key: your public SSH key
 
 Then, edit the generated install-config.yaml to make it single-node:
 
-**4. Deploy the Cluster**
+**5. Deploy the Cluster**
 
 openshift-install create cluster --dir=okd-sno --log-level=info
 
-**5. Configure DNS (If not using Route53)**
-
-If using external DNS (e.g., Cloudflare), manually create:
-
-api.okd.example.com → points to the API LB
-
-*.apps.okd.example.com → points to the apps LB
-
-Get the IPs from the AWS console or via CLI.
-
-**5. Optional: Clean Up
+**6. Optional: Clean Up
 
 openshift-install destroy cluster --dir=okd-sno
 
