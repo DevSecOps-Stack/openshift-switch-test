@@ -1,4 +1,4 @@
-**OKD Installer & Client**
+**1. OKD Installer & Client**
 
 curl -LO https://github.com/openshift/okd/releases/download/4.14.0-0.okd-2024-04-14-080220/openshift-install-linux-4.14.0-0.okd-2024-04-14-080220.tar.gz
 
