@@ -15,8 +15,6 @@ wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-1
 
 tar xvf openshift-install-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
-sudo mv openshift-install /usr/bin/
-
 wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-linux-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
 tar xvf openshift-client-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
