@@ -1,0 +1,84 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  namespace: switch-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx
+          image: bitnami/nginx:latest
+          ports:
+            - containerPort: 8080
+          volumeMounts:
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+      volumes:
+        - name: nginx-cache
+          emptyDir: {}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: switch-app-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080 # Replace with your app's port
+  type: ClusterIP
+
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: switch-app-route # You can keep this name consistent or make it region-specific, e.g., switch-app-route-east-1
+  namespace: switch-app # Replace with your OpenShift project/namespace, e.g., switch-app-east-1
+  labels:
+    app: nginx # Optional: Add any labels you use for organization
+    #region: us-east-1 # Optional: Example label to identify the region
+spec:
+  # If you want to specify a custom hostname for this route, uncomment and set the following.
+  # Otherwise, OpenShift will generate one for you (e.g., switch-app-route-your-namespace.apps.your-cluster.domain.com).
+  # For your Route 53 setup, you'll use either the OpenShift-generated hostname
+  # or this custom hostname as the CNAME target.
+  # host: app-east1.soktekh.com # Example for us-east-1. For us-east-2, it might be app-east2.soktekh.com
+  to:
+    kind: Service
+    name: switch-app-service # Replace with the name of your application's Service, e.g., switch-app-service
+    weight: 100 # This is for the route's internal weighting; keep at 100 if it's the sole backend for this route
+  port:
+    # Specify the port on your Service that this Route should target.
+    # This can be the port name (if defined in your Service) or the port number.
+    targetPort: 8080 # e.g., http, 8080-tcp, or just 8080
+  tls:
+    termination: edge # Common choice: Router terminates TLS encryption.
+                      # Other options: 'passthrough' (router doesn't terminate, sends to pod)
+                      # or 'reencrypt' (router terminates, then re-encrypts to pod).
+    insecureEdgeTerminationPolicy: Redirect # Redirect HTTP requests to HTTPS.
+                                            # Other option: 'Allow' (serve both HTTP and HTTPS), 'None' (serve only HTTPS)
+    # If you have a custom certificate/key you want to use for this route,
+    # you can specify them here. Otherwise, OpenShift uses its default ingress certificate.
+    # certificate: |-
+    #   -----BEGIN CERTIFICATE-----
+    #   ...
+    #   -----END CERTIFICATE-----
+    # key: |-
+    #   -----BEGIN PRIVATE KEY-----
+    #   ...
+    #   -----END PRIVATE KEY-----
+    # caCertificate: |- # Optional: If your service uses a CA certificate that the router should trust for re-encryption
+    #   -----BEGIN CERTIFICATE-----
+    #   ...
+    #   -----END CERTIFICATE-----
