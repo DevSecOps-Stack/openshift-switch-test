@@ -24,7 +24,7 @@ tar xvf openshift-install-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
 #### macOS
 
-[Download for macOS](https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-install-mac-4.15.0-0.okd-2024-03-10-010116.tar.gz)
+wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-install-mac-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
 ### 📥 Download the OKD Client
 
@@ -38,7 +38,7 @@ sudo mv oc kubectl /usr/bin/
 
 #### macOS
 
-[Download for macOS](https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-mac-4.15.0-0.okd-2024-03-10-010116.tar.gz)
+wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-mac-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
 ---
 
