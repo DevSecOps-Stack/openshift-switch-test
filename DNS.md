@@ -1,8 +1,3 @@
-| CNAME             | Value (Target)                                             | Weight | Region      |
-| ----------------- | ---------------------------------------------------------- | ------ | ----------- |
-| `app.softekh.com` | `my-app-route-switch-app.apps.okd-us-east-1-p.softekh.com` | 100    | `us-east-1` |
-| `app.softekh.com` | `my-app-route-switch-app.apps.okd-us-east-2-p.softekh.com` | 0      | `us-east-2` |
----------------------------------------------------------------------------------------------------------
 
 ### DNS Records for Active-Standby Setup
 
