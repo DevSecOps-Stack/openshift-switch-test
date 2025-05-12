@@ -5,7 +5,7 @@
 |------------------|------------------------------------------------------------------|-------------------------------------------------------------|
 | **Record Name**  | `app.softekh.com`                                               | `app.softekh.com`                                           |
 | **Record Type**  | `CNAME`                                                         | `CNAME`                                                     |
-| **Value**        | `my-app-route-switch-app.apps.okd-us-east-1-p.softekh.com`     | `my-app-route-switch-app.apps.okd-us-east-2-p.softekh.com` |
+| **Value**        | `route_url`     | `route_url` |
 | **Routing Policy**| `Weighted`                                                     | `Weighted`                                                  |
 | **Weight**       | `100` (active traffic)                                          | `0` (no traffic until switch)                               |
 | **Set ID**       | `useast1`                                                       | `useast2`                                                   |
