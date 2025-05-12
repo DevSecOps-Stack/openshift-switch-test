@@ -17,7 +17,9 @@ tar xvf openshift-install-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
 
 #### macOS
 
+```bash
 wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-install-mac-4.15.0-0.okd-2024-03-10-010116.tar.gz
+```bash
 
 ### 📥 Download the OKD Client
 
@@ -31,8 +33,9 @@ sudo mv oc kubectl /usr/bin/
 
 #### macOS
 
+```bash
 wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-mac-4.15.0-0.okd-2024-03-10-010116.tar.gz
-
+```bash
 ---
 
 ## 🔐 Step 3: Set Up AWS CLI
