@@ -1,5 +1,5 @@
-✅ Record 1 (Primary or active region)
-Field	Value
+✅ Record 1 (Primary or active region/
+Field	Value/
 Record name	app.softekh.com
 Record type	CNAME
 Value	my-app-route-switch-app.apps.okd-us-east-1-p.softekh.com
