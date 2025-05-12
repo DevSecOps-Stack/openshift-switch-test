@@ -1,13 +1,6 @@
 ## 🧭 Step 1: Configure DNS (If Not Using Route 53)
 
-If using an external DNS provider (e.g., Cloudflare), manually create the following DNS records:
-
-| Record Name              | Description                      |
-| ------------------------ | -------------------------------- |
-| `api.okd.example.com`    | Points to the API Load Balancer  |
-| `*.apps.okd.example.com` | Points to the Apps Load Balancer |
-
-> 📌 Retrieve the Load Balancer IPs from the AWS Console or via CLI.
+create the hosted zone softekh.com and update the nameservers in the domain register
 
 ---
 
