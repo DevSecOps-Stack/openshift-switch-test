@@ -1,65 +1,92 @@
+## 🧭 Step 1: Configure DNS (If Not Using Route 53)
 
-**1. Configure DNS (If not using Route53)
+If using an external DNS provider (e.g., Cloudflare), manually create the following DNS records:
 
-If using external DNS (e.g., Cloudflare), manually create:
+| Record Name              | Description                      |
+| ------------------------ | -------------------------------- |
+| `api.okd.example.com`    | Points to the API Load Balancer  |
+| `*.apps.okd.example.com` | Points to the Apps Load Balancer |
 
-api.okd.example.com → points to the API LB
+> 📌 Retrieve the Load Balancer IPs from the AWS Console or via CLI.
 
-*.apps.okd.example.com → points to the apps LB
+---
 
-Get the IPs from the AWS console or via CLI.
+## ⚙️ Step 2: Install OKD Installer & Client
 
-**2. OKD Installer & Client**
+### 📥 Download the OKD Installer
 
+#### Linux
+
+```bash
 wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-install-linux-4.15.0-0.okd-2024-03-10-010116.tar.gz
-
-and mac
-
-https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-install-mac-4.15.0-0.okd-2024-03-10-010116.tar.gz
-
 tar xvf openshift-install-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
+```
 
+#### macOS
+
+[Download for macOS](https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-install-mac-4.15.0-0.okd-2024-03-10-010116.tar.gz)
+
+### 📥 Download the OKD Client
+
+#### Linux
+
+```bash
 wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-linux-4.15.0-0.okd-2024-03-10-010116.tar.gz
-
-and mac
-
-https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-mac-4.15.0-0.okd-2024-03-10-010116.tar.gz
-
 tar xvf openshift-client-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
-
 sudo mv oc kubectl /usr/bin/
+```
 
-**3. Set up AWS CLI:**
+#### macOS
 
+[Download for macOS](https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-mac-4.15.0-0.okd-2024-03-10-010116.tar.gz)
+
+---
+
+## 🔐 Step 3: Set Up AWS CLI
+
+```bash
 aws configure
+```
 
-**4. Create Install Config**
+---
 
+## 🛠️ Step 4: Create Install Config
+
+```bash
 openshift-install create install-config --dir=okd-sno
+```
 
-You will be prompted for
+You will be prompted to enter:
 
-Platform: AWS
+* **Platform**: AWS
+* **Region**: e.g., `us-east-1`
+* **Base Domain**: e.g., `example.com`
+* **Cluster Name**: e.g., `okd`
+* **Pull Secret**: [Get from Red Hat](https://cloud.redhat.com/openshift/install/pull-secret)
+* **SSH Key**: Your public SSH key
 
-Region: your preferred region (e.g., us-east-1)
+Generate SSH key if needed:
 
-Base domain: e.g., example.com
-
-Cluster name: e.g., okd
-
-Pull secret: get from https://cloud.redhat.com/openshift/install/pull-secret
-
-SSH key: your public SSH key
-
+```bash
 ssh-keygen -t ed25519 -N '' -f ~/.ssh/id_rsa
+```
 
-Then, edit the generated install-config.yaml to make it single-node:
+✏️ After creation, edit `install-config.yaml` to convert the cluster to a Single Node (SNO) setup.
 
-**5. Deploy the Cluster**
+---
 
+## 🚀 Step 5: Deploy the Cluster
+
+```bash
 ./openshift-install create cluster --log-level=info
+```
 
-**6. Optional: Clean Up
+---
 
+## 🧹 Step 6: Optional - Clean Up
+
+To destroy the deployed cluster:
+
+```bash
 openshift-install destroy cluster --dir=okd-sno
-
+```
