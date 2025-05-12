@@ -10,7 +10,6 @@
 | **Weight**       | `100` (active traffic)                                          | `0` (no traffic until switch)                               |
 | **Set ID**       | `useast1`                                                       | `useast2`                                                   |
 | **TTL**          | `60` (or less for quick propagation)                            | `60`                                                        |
----------------------------------------------------------------------------------------------------------------------------------------------
----
+----------------------------------------------------------------------------------------------------------------------------------------
 #apply below command for both routes
 oc patch route switch-app-route -n switch-app -p '{"spec":{"host":"app.softekh.com"}}'
