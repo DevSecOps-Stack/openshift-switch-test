@@ -71,6 +71,3 @@ spec:
     #   ...
     #   -----END CERTIFICATE-----
 
----
-#apply below command for both routes
-oc patch route switch-app-route -n switch-app -p '{"spec":{"host":"app.softekh.com"}}'
