@@ -1,3 +1,4 @@
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,17 +31,18 @@ apiVersion: v1
 kind: Service
 metadata:
   name: switch-app-service
+  namespace: switch-app
 spec:
   selector:
     app: nginx
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8080 # Replace with your app's port
+      targetPort: 8080  # Replace with your app's port
   type: ClusterIP
 
 ---
-#create routes for both clusters
+# Create routes for both clusters
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
@@ -51,13 +53,15 @@ spec:
     kind: Service
     name: switch-app-service
   port:
-    targetPort: 8080
+    targetPort: 80
   tls:
     termination: edge
     insecureEdgeTerminationPolicy: Redirect
-                                            # Other option: 'Allow' (serve both HTTP and HTTPS), 'None' (serve only HTTPS)
+    # Other options: 'Allow' (serve both HTTP and HTTPS),
+    # 'None' (serve only HTTPS)
     # If you have a custom certificate/key you want to use for this route,
-    # you can specify them here. Otherwise, OpenShift uses its default ingress certificate.
+    # you can specify them here. Otherwise, OpenShift uses its default
+    # ingress certificate.
     # certificate: |-
     #   -----BEGIN CERTIFICATE-----
     #   ...
@@ -66,8 +70,7 @@ spec:
     #   -----BEGIN PRIVATE KEY-----
     #   ...
     #   -----END PRIVATE KEY-----
-    # caCertificate: |- # Optional: If your service uses a CA certificate that the router should trust for re-encryption
-    #   -----BEGIN CERTIFICATE-----
-    #   ...
+    # caCertificate: |-  # Optional: If your service uses a CA certificate
+    #   -----BEGIN CERTIFICATE-----  # that the router should trust
+    #   ...                         # for re-encryption
     #   -----END CERTIFICATE-----
-
