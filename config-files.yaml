@@ -1,3 +1,9 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: switch-app
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -30,6 +36,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: switch-app-service
+  namespace: switch-app
 spec:
   selector:
     app: nginx
