@@ -77,9 +77,101 @@ ssh-keygen -t ed25519 -N '' -f ~/.ssh/id_rsa
 ./openshift-install create cluster --log-level=info
 ```
 
+After the cluster is ready, get the login credentials:
+
+```bash
+export KUBECONFIG=okd-sno/auth/kubeconfig
+oc whoami
+```
+
+### Deploy the Application
+
+Deploy the switch test application:
+
+```bash
+# Create the namespace
+oc create namespace switch-app
+
+# Deploy the application
+oc apply -f config-files.yaml
+
+# Verify deployment
+oc get pods -n switch-app
+oc get svc -n switch-app  
+oc get route -n switch-app
+
+# Update the route host (replace with your actual domain)
+oc patch route switch-app-route -n switch-app -p '{"spec":{"host":"app.softekh.com"}}'
+```
+
 ---
 
-## 🧹 Step 6: Optional - Clean Up
+## 🛑 Step 6: Stop Application
+
+To stop the application without destroying the cluster:
+
+### Stop Traffic Routing
+
+Set DNS weights to 0 to stop traffic routing to the application:
+
+```bash
+# Update Route 53 weights to 0 for both regions (if using Route 53)
+# This stops traffic from reaching the application
+aws route53 change-resource-record-sets --hosted-zone-id YOUR_ZONE_ID --change-batch '{
+  "Changes": [{
+    "Action": "UPSERT",
+    "ResourceRecordSet": {
+      "Name": "app.softekh.com",
+      "Type": "CNAME",
+      "SetIdentifier": "useast1",
+      "Weight": 0,
+      "ResourceRecords": [{"Value": "your-route-url-1"}]
+    }
+  }, {
+    "Action": "UPSERT", 
+    "ResourceRecordSet": {
+      "Name": "app.softekh.com",
+      "Type": "CNAME",
+      "SetIdentifier": "useast2", 
+      "Weight": 0,
+      "ResourceRecords": [{"Value": "your-route-url-2"}]
+    }
+  }]
+}'
+```
+
+### Scale Down Application
+
+Scale down the application to 0 replicas:
+
+```bash
+# Scale down the nginx deployment
+oc scale deployment nginx --replicas=0 -n switch-app
+
+# Verify the pods are stopped
+oc get pods -n switch-app
+```
+
+### Remove Application Resources (Optional)
+
+To completely remove the application resources:
+
+```bash
+# Delete the application resources
+oc delete -f config-files.yaml
+
+# Or delete individual resources
+oc delete deployment nginx -n switch-app
+oc delete service switch-app-service -n switch-app
+oc delete route switch-app-route -n switch-app
+
+# Delete the namespace (optional)
+oc delete namespace switch-app
+```
+
+---
+
+## 🧹 Step 7: Optional - Clean Up Cluster
 
 To destroy the deployed cluster:
 
