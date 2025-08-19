@@ -12,7 +12,7 @@ create the hosted zone softekh.com and update the nameservers in the domain regi
 
 ```bash
 wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-install-linux-4.15.0-0.okd-2024-03-10-010116.tar.gz
-tar xvf openshift-install-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
+tar xvf openshift-install-linux-4.15.0-0.okd-2024-03-10-010116.tar.gz
 ```
 
 #### macOS
@@ -27,7 +27,7 @@ wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-1
 
 ```bash
 wget https://github.com/okd-project/okd/releases/download/4.15.0-0.okd-2024-03-10-010116/openshift-client-linux-4.15.0-0.okd-2024-03-10-010116.tar.gz
-tar xvf openshift-client-linux-arm64-4.15.0-0.okd-2024-03-10-010116.tar.gz
+tar xvf openshift-client-linux-4.15.0-0.okd-2024-03-10-010116.tar.gz
 sudo mv oc kubectl /usr/bin/
 ```
 
@@ -64,7 +64,7 @@ You will be prompted to enter:
 Generate SSH key if needed:
 
 ```bash
-ssh-keygen -t ed25519 -N '' -f ~/.ssh/id_rsa
+ssh-keygen -t ed25519 -N '' -f ~/.ssh/id_ed25519
 ```
 
 ✏️ After creation, edit `install-config.yaml` to convert the cluster to a Single Node (SNO) setup.
@@ -74,7 +74,7 @@ ssh-keygen -t ed25519 -N '' -f ~/.ssh/id_rsa
 ## 🚀 Step 5: Deploy the Cluster
 
 ```bash
-./openshift-install create cluster --log-level=info
+openshift-install create cluster --dir=okd-sno --log-level=info
 ```
 
 ---
